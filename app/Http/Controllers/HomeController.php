@@ -11,24 +11,32 @@ class HomeController extends Controller {
 	| are authenticated. Of course, you are free to change or remove the
 	| controller as you wish. It is just here to get your app started!
 	|
+	*/
 
+	/**
+	 * Create a new controller instance.
+	 *
+	 * @return void
+	 */
+	// public function __construct()
+	// {
+	// 	$this->middleware('auth');
+	// }
 
 	/**
 	 * Show the application dashboard to the user.
 	 *
 	 * @return Response
 	 */
-	
-	public function index()
-	{	
+	public function index(){
 		$role=\Auth::user()->role;
 		if($role==1){
-			return redirect('page');
+			return redirect('admin');
 		}
 		else{
-			return redirect('home');
+			return view('welcome');
 		}
-
-
+	//	return view('home');
 	}
+
 }

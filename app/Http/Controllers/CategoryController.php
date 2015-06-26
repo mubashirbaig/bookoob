@@ -7,84 +7,68 @@ use Illuminate\Http\Request;
 
 class CategoryController extends Controller {
 
-	/**
-	 * Display a listing of the resource.
-	 *
-	 * @return Response
-	 */
-	public function index()
-	{
-		echo "index";
+	public function __construct(){
+		$this->middleware('auth');
 	}
 
-	/**
-	 * Show the form for creating a new resource.
-	 *
-	 * @return Response
-	 */
-	public function create()
-	{
-		return view('category.create');
+	public function index(){
+			$category=Category::all();
+			return view('category.index',compact('category'));
 	}
 
-	/**
-	 * Store a newly created resource in storage.
-	 *
-	 * @return Response
-	 */
-	public function store(Request $request)
-	{
-		$this->validate($request, ['category_name' => 'required']);
-	
 
-    	$input = $request->all();
- 		Category::create($input);
- 		\Session::flash('flash_message', 'Task successfully added!');
+	public function create(){
+			return view('category.create');
+	}
+
+
+
+	public function store(Request $request){
+			$this->validate($request, ['category_name' => 'required']);
+			$input = $request->all();
+ 			Category::create($input);
+ 			\Session::flash('flash_message', 'Task successfully added!');
+			return redirect()->back();
+	}
+
+
+
+
+	public function show($id){
+		//
+	}
+
+
+
+
+	public function edit($id){
+		$category = Category::where('category_id', $id)->first();
+		return view('category.edit',compact('category'));
+	}
+
+
+
+
+	public function update($id,Request $request){
+			$category = Category::where('category_id', $id)->first();
+	 		$this->validate($request, ['category_name' => 'required']);
+
+	    $input = $request->all();
+			Category::where('category_id', $id)->update(['category_name' => $input['category_name']]);
+
+    	\Session::flash('flash_message', 'Category successfully updated!');
+
+    	return redirect()->back();
+	}
+
+
+
+
+	public function destroy($id){
+		$category = Category::where('category_id', $id)->first();
+		Category::where('category_id', $id)->delete();
+		\Session::flash('flash_message', 'Category successfully deleted!');
 		return redirect()->back();
-	}
-
-	/**
-	 * Display the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function show($id)
-	{
-		//
-	}
-
-	/**
-	 * Show the form for editing the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function edit($id)
-	{
-		//
-	}
-
-	/**
-	 * Update the specified resource in storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function update($id)
-	{
-		//
-	}
-
-	/**
-	 * Remove the specified resource from storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function destroy($id)
-	{
-		//
 	}
 
 }

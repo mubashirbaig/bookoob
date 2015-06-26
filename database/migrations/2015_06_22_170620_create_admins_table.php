@@ -16,7 +16,7 @@ class CreateAdminsTable extends Migration {
 		{
 			$table->increments('admin_id');
 			$table->integer('id')->unsigned();
-			$table->foreign('id')->references('id')->on('users');
+      $table->foreign('id')->references('id')->on('users');
 			$table->timestamps();
 		});
 	}

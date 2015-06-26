@@ -9,24 +9,21 @@
 	</head>
 
 	<body>
-	 
+
 		<nav class="navbar navbar-default">
 		  <div class="container-fluid">
 		    <div class="navbar-header">
-		      <a class="navbar-brand" href="home">Books</a>
+		      <a class="navbar-brand" href="{{ URL::to('home') }}">Books</a>
 		    </div>
-		    <div class="nav navbar-nav navbar-right">
-		        <li><a href="home">Home</a></li>
-		        <li><a href="{{ route('books.index') }}">Books</a></li>
-		    </div>
+		    
 		  </div>
 		</nav>
-		 
+
 		<main>
 		    <div class="container">
 		        @yield('content')
 		    </div>
 		</main>
-	 
+
 	</body>
 </html>
